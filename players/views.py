@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
+from django.http.response import Http404
 from django.template import loader
 
 from players.models import Question
@@ -14,7 +15,11 @@ def index(request):
 
 
 def detail(request, player_id):
-    return HttpResponse("You're looking at question %s." % player_id)
+    try:
+        question = Question.objects.get(pk=player_id)
+    except Question.DoesNotExist:
+        raise Http404("Question does not exist")
+    return render(request, 'players/detail.html', {'question': question})
 
 def results(request, player_id):
     response = "You're looking at the results of question %s."
