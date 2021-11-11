@@ -15,6 +15,7 @@ def index(request):
 
 
 def detail(request, player_id):
+    # TODO: https://docs.djangoproject.com/en/3.2/intro/tutorial03/#a-shortcut-get-object-or-404
     try:
         question = Question.objects.get(pk=player_id)
     except Question.DoesNotExist:
