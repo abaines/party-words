@@ -9,12 +9,9 @@ from players.models import Question
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    template = loader.get_template('players/index.html')
-    context = {
-        'latest_question_list': latest_question_list,
-    }
-    output = template.render(context,request)
-    return HttpResponse(output)
+    context = {'latest_question_list': latest_question_list}
+    return render(request, 'players/index.html', context)
+
 
 def detail(request, player_id):
     return HttpResponse("You're looking at question %s." % player_id)
